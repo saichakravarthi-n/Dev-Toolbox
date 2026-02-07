@@ -9,48 +9,46 @@
 <body>
   <div class="app">
     <aside class="sidebar" role="navigation" aria-label="Tool selection">
-      <h2 class="sidebar-title">Dev Toolbox</h2>
-      <h3 class="sidebar-section">Text & Encoding</h3>
+      <div class="sidebar-header">
+        <h2 class="sidebar-title">Dev Toolbox</h2>
+        <button type="button" id="theme-btn" class="theme-btn" title="Toggle light/dark theme" aria-label="Toggle theme">
+          <span id="theme-icon" aria-hidden="true">🌙</span>
+        </button>
+      </div>
       <ul class="tool-list" role="list">
         <li><button type="button" class="tool-btn" data-tool="base64-encode" aria-pressed="false">Base64 Encode</button></li>
         <li><button type="button" class="tool-btn" data-tool="base64-decode" aria-pressed="false">Base64 Decode</button></li>
         <li><button type="button" class="tool-btn" data-tool="url-encode" aria-pressed="false">URL Encode</button></li>
         <li><button type="button" class="tool-btn" data-tool="url-decode" aria-pressed="false">URL Decode</button></li>
-        <li><button type="button" class="tool-btn" data-tool="html-encode" aria-pressed="false">HTML Encode</button></li>
-        <li><button type="button" class="tool-btn" data-tool="html-decode" aria-pressed="false">HTML Decode</button></li>
-        <li><button type="button" class="tool-btn" data-tool="unicode-escape" aria-pressed="false">Unicode Escape</button></li>
-        <li><button type="button" class="tool-btn" data-tool="unicode-unescape" aria-pressed="false">Unicode Unescape</button></li>
-        <li><button type="button" class="tool-btn" data-tool="binary-to-text" aria-pressed="false">Binary to Text</button></li>
-        <li><button type="button" class="tool-btn" data-tool="text-to-binary" aria-pressed="false">Text to Binary</button></li>
-        <li><button type="button" class="tool-btn" data-tool="hex-to-text" aria-pressed="false">Hex to Text</button></li>
-        <li><button type="button" class="tool-btn" data-tool="text-to-hex" aria-pressed="false">Text to Hex</button></li>
-        <li><button type="button" class="tool-btn" data-tool="ascii-table" aria-pressed="false">ASCII Table</button></li>
         <li><button type="button" class="tool-btn" data-tool="json-validate" aria-pressed="false">JSON Validate</button></li>
-      </ul>
-      <h3 class="sidebar-section">Text Utilities</h3>
-      <ul class="tool-list" role="list">
-        <li><button type="button" class="tool-btn" data-tool="uppercase" aria-pressed="false">Uppercase</button></li>
-        <li><button type="button" class="tool-btn" data-tool="lowercase" aria-pressed="false">Lowercase</button></li>
-        <li><button type="button" class="tool-btn" data-tool="camel-case" aria-pressed="false">CamelCase</button></li>
-        <li><button type="button" class="tool-btn" data-tool="snake-case" aria-pressed="false">Snake_case</button></li>
-        <li><button type="button" class="tool-btn" data-tool="kebab-case" aria-pressed="false">Kebab-case</button></li>
-        <li><button type="button" class="tool-btn" data-tool="remove-extra-spaces" aria-pressed="false">Remove extra spaces</button></li>
-        <li><button type="button" class="tool-btn" data-tool="sort-lines" aria-pressed="false">Sort lines</button></li>
-        <li><button type="button" class="tool-btn" data-tool="remove-duplicate-lines" aria-pressed="false">Remove duplicate lines</button></li>
-        <li><button type="button" class="tool-btn" data-tool="line-word-char-counter" aria-pressed="false">Line / Word / Char counter</button></li>
-        <li><button type="button" class="tool-btn" data-tool="find-replace" aria-pressed="false">Find & Replace</button></li>
+        <li><button type="button" class="tool-btn" data-tool="jwt-decode" aria-pressed="false">JWT Decode</button></li>
+        <li><button type="button" class="tool-btn" data-tool="uuid-generate" aria-pressed="false">UUID Generator</button></li>
+        <li><button type="button" class="tool-btn" data-tool="epoch-convert" aria-pressed="false">Epoch ↔ Date</button></li>
+        <li><button type="button" class="tool-btn" data-tool="mod-headers" aria-pressed="false">Mod Headers</button></li>
       </ul>
     </aside>
-    <main class="main" role="main">
-      <section class="input-panel" aria-labelledby="input-label">
-        <label id="input-label" for="input-text">Input</label>
-        <div id="find-replace-row" class="tool-options-row" hidden>
-          <label for="find-input">Find</label>
-          <input type="text" id="find-input" class="tool-options-input" placeholder="Text to find" autocomplete="off">
-          <label for="replace-input">Replace</label>
-          <input type="text" id="replace-input" class="tool-options-input" placeholder="Replace with" autocomplete="off">
+    <main class="main" id="main-content" role="main">
+      <section id="headers-panel" class="headers-panel" aria-label="Modify HTTP headers">
+        <div class="headers-toolbar">
+          <label for="headers-url">URL (optional)</label>
+          <input type="url" id="headers-url" class="headers-url" placeholder="https://api.example.com/..." autocomplete="off">
         </div>
-        <textarea id="input-text" rows="20" placeholder="Enter text here..." aria-describedby="input-label"></textarea>
+        <div class="headers-list-wrap">
+          <label class="headers-list-label">Headers</label>
+          <div id="headers-list" class="headers-list" role="list"></div>
+          <button type="button" id="headers-add-btn" class="headers-add-btn">+ Add header</button>
+        </div>
+        <div class="headers-actions">
+          <button type="button" id="headers-copy-curl" class="headers-copy-btn">Copy as cURL</button>
+          <button type="button" id="headers-copy-fetch" class="headers-copy-btn">Copy as fetch</button>
+        </div>
+        <pre id="headers-preview" class="headers-preview" aria-live="polite"></pre>
+      </section>
+      <section class="input-panel" aria-labelledby="input-label">
+        <div id="input-area">
+          <label id="input-label" for="input-text">Input</label>
+          <textarea id="input-text" rows="20" placeholder="Enter text here..." aria-describedby="input-label"></textarea>
+        </div>
         <button type="button" id="convert-btn" class="convert-btn">Convert</button>
       </section>
       <section class="output-panel" aria-labelledby="output-label">

@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Dev Toolbox",
   "version": "1.0.0",
-  "description": "Developer toolbox: Base64 encode/decode, JSON validation and more.",
+  "description": "Developer toolbox: Base64, JWT decode, UUID, epoch/date, colors, URL parser, JSON tools and more.",
   "action": {},
   "background": {
     "service_worker": "background.js"
